@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>oUl.offserTop</title>
+<style type="text/css">
+html,body,img,div,ul,li{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+}
+img{
+	border: none;
+}
+body{
+	background:#eee;
+}
+#main{
+	width: 120px;
+	height: 440px;
+	border: 1px solid #ccc;
+	margin: 0 auto;
+	position: relative;
+	top: 50px;
+	background: #fff;
+}
+#content{
+    width: 120px;
+	height: 370px;
+	overflow: hidden;
+	position: absolute;
+	left: 0;
+	top: 35px;
+}
+ul{
+	width: 120px;
+	position: absolute;
+	top:0;
+	left: 10px;
+}
+li{
+	width: 120px;
+	height: 110px;
+}
+#up{
+	background: url(images/up.gif) no-repeat;
+	position: absolute;
+	top: 4px;
+	left: 46px;
+	width: 27px;
+	height: 27px;
+	cursor: pointer;
+	filter: alpha(opacity: 60); opacity: 0.6; 
+}
+#down{
+		background: url(images/down.gif) no-repeat;
+	position: absolute;
+	bottom: 4px;
+	left: 46px;
+	width: 27px;
+	height: 27px;
+	cursor: pointer;
+	filter: alpha(opacity: 60); opacity: 0.6; 
+	}
+
+
+</style>
+<script type="text/javascript">
+window.onload = function()
+{	
+	function Scroll()
+	{
+		this.oDiv = document.getElementById("main");
+		this.oUl = this.oDiv.getElementsByTagName("ul")[0];
+		this.oUp = document.getElementById("up");
+		this.oDown = document.getElementById("down");
+		this.ispeed = 5;
+		var _this = this;
+		this.oUl.innerHTML += this.oUl.innerHTML;
+		this.set = function()
+		{
+			this.timer = setInterval(function()
+			{
+				_this.oUl.style.top = _this.oUl.offsetTop + _this.ispeed + 'px';
+				if(_this.oUl.offsetTop < -_this.oUl.offsetHeight / 2)
+				{
+					_this.oUl.style.top = 0;
+				}
+				if(_this.oUl.offsetTop > 0)
+				{
+					_this.oUl.style.top = -_this.oUl.offsetHeight / 2 + "px";
+				}
+			},100)
+		}
+
+		this.oUp.onmouseover = function()
+		{
+			_this.fnOver1();
+		}
+
+		this.oUp.onmouseout = function()
+		{
+			_this.fnOut1();
+		}
+
+		this.oDown.onmouseover = function()
+		{
+			_this.fnOver2();
+		}
+
+		this.oDown.onmouseout = function()
+		{
+			_this.fnOut2();
+		}
+
+		this.oUp.onclick = function()
+		{
+			_this.fnClick1();
+		}
+
+		this.oDown.onclick = function()
+		{
+			_this.fnClick2();
+		}
+
+		this.oUl.onmouseover = function()
+		{
+			clearTimeout(_this.timer);
+		}
+
+		this.oUl.onmouseout = function()
+		{
+			_this.set()
+		} 
+
+
+	}
+
+	Scroll.prototype.fnOver1 = function()
+	{
+		this.oUp.style.filter = 'alpha(opacity:100)';
+	  	this.oUp.style.opacity = 1;
+	}
+
+	Scroll.prototype.fnOver2 = function()
+	{
+		this.oDown.style.filter = 'alpha(opacity:100)';
+	  	this.oDown.style.opacity = 1;
+	}
+
+	Scroll.prototype.fnOut1 = function()
+	{
+		this.oUp.style.filter = 'alpha(opacity:60)'; 
+		this.oUp.style.opacity = 0.6;
+	}
+
+	Scroll.prototype.fnOut2 = function()
+	{
+		this.oDown.style.filter = 'alpha(opacity:60)'; 
+		this.oDown.style.opacity = 0.6;
+	}
+
+	Scroll.prototype.fnClick1 = function()
+	{
+		this.ispeed = -5;
+	}
+
+	Scroll.prototype.fnClick2 = function()
+	{
+		this.ispeed = 5;
+	}
+
+	var scroll = new Scroll();
+		scroll.set();
+}
+</script>
+</head>
+<body>
+	<div id="main">
+		<div id="up">
+		</div>
+		<div id="content">
+			<ul>
+				<li><img src="images/1.jpg" /></li>
+				<li><img src="images/2.jpg" /></li>
+				<li><img src="images/3.jpg" /></li>
+				<li><img src="images/4.jpg" /></li>
+			</ul>
+		</div>
+		<div id="down">
+		</div>
+	</div>
+</body>
+</html>
