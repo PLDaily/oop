@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+}
+#btn1{
+	position: fixed;
+	bottom: 0;
+	right: 0;
+}
+</style>
+<script type="text/javascript">
+window.onload = function()
+{
+	function Button()
+	{
+		var _this = this;
+		this.oBtn = document.getElementById("btn1");
+		this.timer = null;
+		this.daSystem = true;
+		
+		this.set = function()
+		{
+			this.timer = setInterval(function()
+			{
+				
+				var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+				var ispeed = Math.floor(- scrollTop / 8);
+				document.documentElement.scrollTop = document.body.scrollTop = scrollTop + ispeed;
+				_this.doSystem = true;
+				if(scrollTop == 0)
+				{
+					clearInterval(_this.timer);
+				}
+			},30)
+		}
+		this.oBtn.onclick = function()
+		{
+			_this.set();
+		}
+
+		window.onscroll = function()
+		{
+			_this.fnScroll();
+		}
+	}
+
+	Button.prototype.fnScroll = function()
+	{
+		if(!this.doSystem)
+		{
+			clearInterval(this.timer);
+		}
+		this.doSystem = false;
+	}
+	Button.prototype.fnClick = function()
+	{
+		
+	}
+	new Button();
+}
+
+</script>
+</head>
+<body>
+<div id="div1" style="height:1500px;">
+	<input id="btn1" type="button" value="回到顶部">
+</div>
+</body>
+</html>
